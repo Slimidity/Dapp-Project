@@ -2,4 +2,8 @@
 
 ## web3 boilerplate for ReactTS
 
-220106 - first commit
+Remix 연동:
+
+```
+remixd -s . --remix-ide https://remix.ethereum.org
+```
