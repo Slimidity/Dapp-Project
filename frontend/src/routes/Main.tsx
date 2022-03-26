@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import AnimalCard from '../components/AnimalCard';
 import { mintAnimalTokenContract } from '../contracts';
 
 interface MainProps {
@@ -6,7 +7,7 @@ interface MainProps {
 }
 
 const Main: FC<MainProps> = ({ account }) => {
-  const [newAnimalCard, setNewAnimalCard] = useState<string>();
+  const [newAnimalType, setNewAnimalType] = useState<string>();
 
   const onClickMint = async () => {
     try {
@@ -15,8 +16,24 @@ const Main: FC<MainProps> = ({ account }) => {
       const response = await mintAnimalTokenContract.methods
         .mintAnimalToken()
         .send({ from: account });
+      if (response.status) {
+        // account가 가진 nft 수
+        const balanceLength = await mintAnimalTokenContract.methods //
+          .balanceOf(account)
+          .call();
 
-      console.log(response);
+        // 방금 mint한 nft id 받기
+        const animalTokenId = await mintAnimalTokenContract.methods //
+          .tokenOfOwnerByIndex(account, parseInt(balanceLength) - 1)
+          .call();
+
+        // 방금 mint한 nft type 받기
+        const animalTokenType = await mintAnimalTokenContract.methods //
+          .animalTypes(animalTokenId)
+          .call();
+
+        setNewAnimalType(animalTokenType);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -24,14 +41,12 @@ const Main: FC<MainProps> = ({ account }) => {
 
   return (
     <div>
-      {newAnimalCard ? (
-        <div>{newAnimalCard}</div>
+      {newAnimalType ? (
+        <AnimalCard animalType={newAnimalType} />
       ) : (
-        <>
-          <div> 새 동물카드를 Mint 해보세요</div>
-          <button onClick={onClickMint}>Mint</button>
-        </>
+        <div> 새 동물카드를 Mint 해보세요</div>
       )}
+      <button onClick={onClickMint}>Mint</button>
     </div>
   );
 };
