@@ -11,7 +11,7 @@ const App: FC = () => {
         const accounts = await window.ethereum.request({
           method: 'eth_requestAccounts',
         });
-        setAccount(accounts);
+        setAccount(accounts[0]);
       } else {
         alert('메타마스크를 설치해주세요');
       }
@@ -22,7 +22,7 @@ const App: FC = () => {
 
   useEffect(() => {
     getAccount();
-  }, []);
+  }, [account]);
 
   return (
     <BrowserRouter>
