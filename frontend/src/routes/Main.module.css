@@ -1,0 +1,17 @@
+.mintContainer {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.text {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.mint {
+  padding: 0.3rem;
+  font-size: 1rem;
+  cursor: pointer;
+}

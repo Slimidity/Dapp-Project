@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { mintAnimalTokenContract } from '../contracts';
 import AnimalCard from './AnimalCard';
+import styles from './MyAnimal.module.css';
 
 interface MyAnimalProps {
   account: string;
@@ -44,11 +45,13 @@ const MyAnimal: FC<MyAnimalProps> = ({ account }) => {
 
   return (
     <>
-      <div>My Animal list</div>
-      <div>
-        {animalCards.map((animalType, index) => (
-          <AnimalCard animalType={animalType} key={index} />
-        ))}
+      <div className={styles.container}>
+        <div className={styles.text}>My Animal list</div>
+        <div className={styles.list}>
+          {animalCards.map((animalType, index) => (
+            <AnimalCard animalType={animalType} key={index} />
+          ))}
+        </div>
       </div>
     </>
   );

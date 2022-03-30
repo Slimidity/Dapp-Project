@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import AnimalCard from '../components/AnimalCard';
 import { mintAnimalTokenContract } from '../contracts';
+import styles from './Main.module.css';
 
 interface MainProps {
   account: string;
@@ -40,13 +41,15 @@ const Main: FC<MainProps> = ({ account }) => {
   };
 
   return (
-    <div>
+    <div className={styles.mintContainer}>
       {newAnimalType ? (
         <AnimalCard animalType={newAnimalType} />
       ) : (
-        <div> 새 동물카드를 Mint 해보세요</div>
+        <div className={styles.text}> 새 동물카드를 Mint 해보세요</div>
       )}
-      <button onClick={onClickMint}>Mint</button>
+      <button onClick={onClickMint} className={styles.mint}>
+        Mint
+      </button>
     </div>
   );
 };

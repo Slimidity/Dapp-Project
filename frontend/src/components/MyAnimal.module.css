@@ -1,0 +1,17 @@
+.container {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.text {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  width: 28rem;
+  flex-wrap: wrap;
+}
