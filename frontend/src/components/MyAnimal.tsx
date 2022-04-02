@@ -15,7 +15,7 @@ interface MyAnimalProps {
 
 const MyAnimal: FC<MyAnimalProps> = ({ account }) => {
   const [animalCards, setAnimalCards] = useState<IMyAnimalCard[]>([]);
-  const [saleStatus, setSaleStatus] = useState<boolean>(); // 판매권한
+  const [saleStatus, setSaleStatus] = useState<boolean>(false); // 판매권한
 
   const getAnimalTokens = async () => {
     try {
@@ -110,6 +110,8 @@ const MyAnimal: FC<MyAnimalProps> = ({ account }) => {
               animalTokenId={animalCard.animalTokenId}
               animalType={animalCard.animalType}
               animalPrice={animalCard.animalPrice}
+              saleStatus={saleStatus}
+              account={account}
             />
           ))}
         </div>

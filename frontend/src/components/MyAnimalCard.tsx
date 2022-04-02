@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { web3 } from '../contracts';
+import React, { ChangeEvent, FC, useState } from 'react';
+import { saleAnimalTokenContract, web3 } from '../contracts';
 import AnimalCard from './AnimalCard';
 import styles from './MyAnimalCard.module.css';
 
@@ -10,13 +10,35 @@ export interface IMyAnimalCard {
   animalPrice: string;
 }
 
-interface MyAnimalCardProps extends IMyAnimalCard {}
+interface MyAnimalCardProps extends IMyAnimalCard {
+  saleStatus: boolean;
+  account: string;
+}
 
 const MyAnimalCard: FC<MyAnimalCardProps> = ({
   animalTokenId,
   animalType,
   animalPrice,
+  saleStatus,
+  account,
 }) => {
+  const [sellPrice, setSellPrice] = useState<string>('');
+
+  const onPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSellPrice(e.target.value);
+  };
+
+  const onClickSell = async () => {
+    if (!account || !saleStatus) return;
+
+    const response = await saleAnimalTokenContract.methods //
+      .setForSaleAnimalToken(animalTokenId, web3.utils.toWei(sellPrice))
+      .send({ from: account });
+
+    if (response.status) {
+      console.log(response);
+    }
+  };
   // 가격이 0이 아니면 판매중이라는 뜻
   return (
     <div className={styles.container}>
@@ -26,12 +48,14 @@ const MyAnimalCard: FC<MyAnimalCardProps> = ({
       ) : (
         <div className={styles.sellContainer}>
           <div className={styles.inputContainer}>
-            <input type="number" />
+            <input type="number" value={sellPrice} onChange={onPriceChange} />
             <div>
               <span>Matic</span>
             </div>
           </div>
-          <button className={styles.sellButton}>Sell</button>
+          <button className={styles.sellButton} onClick={onClickSell}>
+            Sell
+          </button>
         </div>
       )}
     </div>
