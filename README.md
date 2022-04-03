@@ -12,8 +12,26 @@ solidity, react, web3, web3-utills, metamask(polygon testnet)
 
 ## How to use
 
-Remix 연동:
+### Remix 연동
 
 ```
 remixd -s . --remix-ide https://remix.ethereum.org
 ```
+
+### frontend 데모용 localhost
+
+`Dapp-Project/frontend/`에서 
+
+```
+npm run start
+```
+
+### 설정
+
+`Dapp-Project/frontend/src/contracts/index.ts /`에서 
+
+자신이 배포한 컨트랙트에 맞게
+
+Abi code(`mintAnimalTokenAbi`, `saleAnimalTokenAbi`) 와
+
+contract address (`mintAnimalTokenAddress`, `saleAnimalTokenAddress`)를 수정 할 것.
