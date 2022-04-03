@@ -26,25 +26,22 @@ const MyAnimal: FC<MyAnimalProps> = ({ account }) => {
         .balanceOf(account)
         .call();
 
-      // 가진 nft 수만큼 반복돌려서 nft들의 type얻기
-      const tempAnimalCards: IMyAnimalCard[] = [];
-      for (let i = 0; i < parseInt(balanceLength); i++) {
-        const animalTokenId: string = await mintAnimalTokenContract.methods //
-          .tokenOfOwnerByIndex(account, i)
-          .call();
-        const animalType: string = await mintAnimalTokenContract.methods //
-          .animalTypes(animalTokenId)
-          .call();
-        const animalPrice: string = await saleAnimalTokenContract.methods //
-          .animalTokenPrices(animalTokenId)
-          .call();
+      if (balanceLength === '0') return;
 
+      // 소유한 nft 정보 얻기
+      const tempAnimalCards: IMyAnimalCard[] = [];
+
+      const response = await mintAnimalTokenContract.methods
+        .getAnimalTokens(account)
+        .call();
+
+      response.map((nft: IMyAnimalCard) => {
         tempAnimalCards.push({
-          animalTokenId,
-          animalType,
-          animalPrice,
+          animalTokenId: nft.animalTokenId,
+          animalType: nft.animalType,
+          animalPrice: nft.animalPrice,
         });
-      }
+      });
 
       // setstate
       setAnimalCards(tempAnimalCards);
