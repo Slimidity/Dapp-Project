@@ -142,6 +142,42 @@ const mintAnimalTokenAbi: AbiItem[] = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: '_animalTokenOwner',
+        type: 'address',
+      },
+    ],
+    name: 'getAnimalTokens',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'animalTokenId',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'animalType',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'animalPrice',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct MintAnimalToken.AnimalTokenData[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint256',
         name: 'tokenId',
         type: 'uint256',
@@ -273,6 +309,19 @@ const mintAnimalTokenAbi: AbiItem[] = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'saleAnimalToken',
+    outputs: [
+      {
+        internalType: 'contract SaleAnimalToken',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -286,6 +335,19 @@ const mintAnimalTokenAbi: AbiItem[] = [
       },
     ],
     name: 'setApprovalForAll',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_saleAnimalToken',
+        type: 'address',
+      },
+    ],
+    name: 'setSaleAnimalToken',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -453,6 +515,25 @@ const saleAnimalTokenAbi: AbiItem[] = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_animalTokenId',
+        type: 'uint256',
+      },
+    ],
+    name: 'getAnimalTokenPrice',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'getOnSaleAnimalTokenArrayLength',
     outputs: [
@@ -531,9 +612,9 @@ const saleAnimalTokenAbi: AbiItem[] = [
 ];
 
 // remix에서 polygon mumbai testnet에 배포하여 생기는 컨트랙트 주소 붙여넣기
-const mintAnimalTokenAddress = '0x35fCF45552A7A9e755852BbDf7B61c83972F88B6';
+const mintAnimalTokenAddress = '0x491c6347ED76d1FdD6A19e12f2F56E5Cc39A23CA';
 export const saleAnimalTokenAddress =
-  '0xd0953EFb9CF06F71EA0625e05199FD49d45422e5';
+  '0x03d6118C858b6a69eB345cf1Fc4DEAa656F610d4';
 
 // metamask 연동
 export const web3 = new Web3(window.ethereum);
