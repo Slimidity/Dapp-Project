@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { mintAnimalTokenContract, saleAnimalTokenContract } from '../contracts';
 import { IMyAnimalCard } from './MyAnimalCard';
+import SaleAnimalCard from './SaleAnimalCard';
 
 interface SaleAnimalProps {
   account: string;
@@ -8,16 +9,17 @@ interface SaleAnimalProps {
 const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
   const [saleAnimalCards, setSaleAnimalCards] = useState<IMyAnimalCard[]>([]);
 
-  const getSaleAnimalToken = async () => {
+  const getOnSaleAnimalTokens = async () => {
     try {
       // 판매중인 nft 갯수
       const onSaleAnimalTokenArrayLength = await saleAnimalTokenContract.methods
         .getOnSaleAnimalTokenArrayLength()
         .call();
-
       const tempSaleAnimalCards: IMyAnimalCard[] = [];
 
-      for (let i = 0; i < onSaleAnimalTokenArrayLength; i++) {
+      for (let i = 0; i < parseInt(onSaleAnimalTokenArrayLength); i++) {
+        console.log(i); // test
+
         // 판매중인 nft id
         const animalTokenId = await saleAnimalTokenContract.methods
           .onSaleAnimalTokenArray(i)
@@ -42,9 +44,23 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
     }
   };
   useEffect(() => {
-    getSaleAnimalToken();
+    getOnSaleAnimalTokens();
   }, []);
-  return <div>SA</div>;
+  useEffect(() => {
+    console.log(saleAnimalCards); // test
+  }, [saleAnimalCards]);
+  return (
+    <div>
+      {saleAnimalCards.map((animalCard, index) => (
+        <SaleAnimalCard
+          key={index}
+          animalTokenId={animalCard.animalTokenId}
+          animalType={animalCard.animalType}
+          animalPrice={animalCard.animalPrice}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default SaleAnimal;
