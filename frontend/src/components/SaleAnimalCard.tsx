@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { web3 } from '../contracts';
 import AnimalCard from './AnimalCard';
 import styles from './SaleAnimalCard.module.css';
 
@@ -16,8 +17,9 @@ const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
   console.log(animalType);
   return (
     <div className={styles.container}>
-      {/* <AnimalCard animalType={animalType} /> */}
-      SAC
+      <AnimalCard animalType={animalType} />
+      <div>{`${web3.utils.fromWei(animalPrice)} MATIC`}</div>
+      <button>Buy</button>
     </div>
   );
 };

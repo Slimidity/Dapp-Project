@@ -2,12 +2,13 @@ import React, { FC, useEffect, useState } from 'react';
 import { mintAnimalTokenContract, saleAnimalTokenContract } from '../contracts';
 import { IMyAnimalCard } from './MyAnimalCard';
 import SaleAnimalCard from './SaleAnimalCard';
+import styles from './SaleAnimal.module.css';
 
 interface SaleAnimalProps {
   account: string;
 }
 const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
-  const [saleAnimalCards, setSaleAnimalCards] = useState<IMyAnimalCard[]>([]);
+  const [saleAnimalCards, setSaleAnimalCards] = useState<IMyAnimalCard[]>();
 
   const getOnSaleAnimalTokens = async () => {
     try {
@@ -18,8 +19,6 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
       const tempSaleAnimalCards: IMyAnimalCard[] = [];
 
       for (let i = 0; i < parseInt(onSaleAnimalTokenArrayLength); i++) {
-        console.log(i); // test
-
         // 판매중인 nft id
         const animalTokenId = await saleAnimalTokenContract.methods
           .onSaleAnimalTokenArray(i)
@@ -46,19 +45,18 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
   useEffect(() => {
     getOnSaleAnimalTokens();
   }, []);
-  useEffect(() => {
-    console.log(saleAnimalCards); // test
-  }, [saleAnimalCards]);
+
   return (
-    <div>
-      {saleAnimalCards.map((animalCard, index) => (
-        <SaleAnimalCard
-          key={index}
-          animalTokenId={animalCard.animalTokenId}
-          animalType={animalCard.animalType}
-          animalPrice={animalCard.animalPrice}
-        />
-      ))}
+    <div className={styles.container}>
+      {saleAnimalCards &&
+        saleAnimalCards.map((animalCard, index) => (
+          <SaleAnimalCard
+            key={index}
+            animalTokenId={animalCard.animalTokenId}
+            animalType={animalCard.animalType}
+            animalPrice={animalCard.animalPrice}
+          />
+        ))}
     </div>
   );
 };
