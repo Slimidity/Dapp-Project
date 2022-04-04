@@ -18,6 +18,11 @@ const Layout: FC = ({ children }) => {
               My Animal
             </button>
           </Link>
+          <Link to="/sale-animal">
+            <button className={`${styles.headerBtn} ${styles.sale}`}>
+              Sale Animal
+            </button>
+          </Link>
         </div>
         <div className={styles.children}>{children}</div>
       </div>
