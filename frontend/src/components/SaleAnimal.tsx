@@ -44,6 +44,11 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
   };
   useEffect(() => {
     getOnSaleAnimalTokens();
+
+    return () => {
+      console.log('bye, saleAnimal');
+      setSaleAnimalCards([]);
+    };
   }, []);
 
   return (

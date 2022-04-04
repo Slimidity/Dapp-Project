@@ -88,6 +88,10 @@ const MyAnimal: FC<MyAnimalProps> = ({ account }) => {
 
     getIsApprovedForAll();
     getAnimalTokens();
+
+    return () => {
+      setAnimalCards([]);
+    };
   }, [account]);
 
   return (
