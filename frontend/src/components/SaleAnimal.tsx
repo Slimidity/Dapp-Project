@@ -61,6 +61,7 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
             animalType={animalCard.animalType}
             animalPrice={animalCard.animalPrice}
             account={account}
+            getOnSaleAnimalTokens={getOnSaleAnimalTokens}
           />
         ))}
     </div>
