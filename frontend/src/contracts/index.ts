@@ -612,9 +612,9 @@ const saleAnimalTokenAbi: AbiItem[] = [
 ];
 
 // remix에서 polygon mumbai testnet에 배포하여 생기는 컨트랙트 주소 붙여넣기
-const mintAnimalTokenAddress = '0x491c6347ED76d1FdD6A19e12f2F56E5Cc39A23CA';
+const mintAnimalTokenAddress = '0x3441989cEF4112938779926E6d42cb961CE81e70';
 export const saleAnimalTokenAddress =
-  '0x03d6118C858b6a69eB345cf1Fc4DEAa656F610d4';
+  '0xFA6656639AC3C1B7ed25034Ca11ad33c04ae8a81';
 
 // metamask 연동
 export const web3 = new Web3(window.ethereum);

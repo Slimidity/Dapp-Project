@@ -41,7 +41,7 @@ contract SaleAnimalToken {
         address animalTokenOwner = mintAnimalTokenAddress.ownerOf(_animalTokenId);
 
         require(price > 0, "Token is not on sale");
-        require(msg.value < price, "Caller has not enough money.");
+        require(price <= msg.value, "Caller sent lower than price.");
         require(msg.sender != animalTokenOwner, "Caller is animal token's owner.");
 
         payable(animalTokenOwner).transfer(msg.value);
